@@ -22,6 +22,7 @@
                     <thead class="thead-light">
                         <tr>
                             <th>Name</th>
+                            <th>Avatar</th>
                             <th>Role</th>
                             <th>Status</th>
                             <th>Edit</th>
@@ -31,6 +32,16 @@
                         @foreach ($users as $user)
                         <tr>
                             <td>{{$user->name}}</td>
+                            <td>
+                                <img
+                                src="{{$user->photo ? $user->photo->file : '/images/default-avatar.jpeg'}}"
+                                alt="your avatar"
+                                class="rounded-full mr-2"
+                                width="50"
+                                height="50"
+                            >
+
+                            </td>
                             <td>{{$user->role->name}}</td>
                             <td>{{ ($user->is_active == 1) ? 'Active' : 'Blocked' }}</td>
                             <td>

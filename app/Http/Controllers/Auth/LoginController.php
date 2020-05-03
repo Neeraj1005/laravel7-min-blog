@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -36,5 +38,20 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    // protected function credentials(Request $request)
+    // {
+    //     return array_merge($request->only($this->username(), 'password'), ['is_active' => 1]);
+    // }
+
+    protected function authenticated(Request $request, $user)
+    {
+        if (auth()->user()->is_active !== 1) {
+
+            Auth::logout();
+
+            return redirect('login')->with('status','your account has been blocked!');
+    }
     }
 }

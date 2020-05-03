@@ -60,21 +60,22 @@
                                         <option value="{{$role->id}}">{{$role->name}}</option>
                                         @endforeach
                                     </select>
+                                    @error('role_id')
+                                    <small class="form-text text-red">{{ $message }}</small>
+                                    @enderror
                                 </div>
-                                @error('role_id')
-                                <small class="form-text text-red">{{ $message }}</small>
-                                @enderror
 
                                 <div class="form-group">
                                     <label for="is_active">Status</label>
                                     <select id="is_active" class="form-control @error('is_active') is-invalid @enderror" name="is_active">
+                                        <option value="2">Select Status</option>
                                         <option value="1">Active</option>
                                         <option value="0">Block</option>
                                     </select>
+                                    @error('is_active')
+                                    <small class="form-text text-red">{{ $message }}</small>
+                                    @enderror
                                 </div>
-                                @error('is_active')
-                                <small class="form-text text-red">{{ $message }}</small>
-                                @enderror
 
                                 <div class="form-group">
                                     <label for="photo_id">Avatar</label>

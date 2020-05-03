@@ -55,22 +55,22 @@
                                     <select class="form-control  @error('role_id') is-invalid @enderror"" name="role_id" id="role">
                                         <option value="0">Select Role</option>
                                         @foreach ($roles as $role)
-                                        <option value="{{$role->id}}">{{$role->name}}</option>
+                                        <option value="{{$role->id}}" {{($user->role_id == $role->id) ? 'selected' : ''}}>{{$role->name}}</option>
                                         @endforeach
+                                        @error('role_id')
+                                            <small class="form-text text-red">{{ $message }}</small>
+                                        @enderror
                                     </select>
-                                    @error('role_id')
-                                        <small class="form-text text-red">{{ $message }}</small>
-                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="is_active">Status</label>
                                     <select id="is_active" class="form-control  @error('is_active') is-invalid @enderror"" name="is_active">
-                                        <option value="1" selected>Active</option>
-                                        <option value="0">Block</option>
+                                        <option value="1" {{($user->is_active == 1)? 'selected' : ''}}>Active</option>
+                                        <option value="0" {{($user->is_active == 0)? 'selected' : ''}}>Block</option>
+                                        @error('is_active')
+                                            <small class="form-text text-red">{{ $message }}</small>
+                                        @enderror
                                     </select>
-                                    @error('is_active')
-                                        <small class="form-text text-red">{{ $message }}</small>
-                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="photo_id">Avatar</label>

@@ -14,6 +14,14 @@
 
             <!-- Sidebar -->
             <div class="sidebar">
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                    <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+                </div>
+                <div class="info">
+                    <a href="#" class="d-block">Neeraj Singh</a>
+                </div>
+            </div>
               <nav class="mt-2">
                 <ul
                   class="nav nav-pills nav-sidebar flex-column"
@@ -21,26 +29,18 @@
                   role="menu"
                   data-accordion="false"
                 >
-                  <li class="nav-item">
-                    <a href="index.html" class="nav-link">
-                      <i class="nav-icon far fa-image"></i>
-                      <p>
-                        Create User
-                      </p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
+                <li class="nav-item">
                     <a href="task/view.html" class="nav-link">
-                      <i class="nav-icon far fa-image"></i>
+                      <i class="nav-icon fas fa-tachometer-alt"></i>
                       <p>
-                        View Task
+                        Dashboard
                       </p>
                     </a>
                   </li>
                   <li class="nav-item has-treeview menu-close">
                     <!-- <a href="#" class="nav-link active"> -->
                     <a href="#" class="nav-link">
-                      <i class="nav-icon fas fa-tachometer-alt"></i>
+                      <i class="nav-icon fas fa-users"></i>
                       <p>
                         Users
                         <i class="right fas fa-angle-left"></i>
@@ -61,23 +61,77 @@
                       </li>
                     </ul>
                   </li>
-                  {{-- <li class="nav-item has-treeview menu-close">
+                  <li class="nav-item has-treeview menu-close">
+                    <!-- <a href="#" class="nav-link active"> -->
                     <a href="#" class="nav-link">
-                      <i class="nav-icon fas fa-tachometer-alt"></i>
+                      <i class="nav-icon fas fa-book"></i>
                       <p>
-                        Dropdown
+                        Posts
                         <i class="right fas fa-angle-left"></i>
                       </p>
                     </a>
                     <ul class="nav nav-treeview">
                       <li class="nav-item">
-                        <a href="./index.html" class="nav-link active">
+                        <a href="{{route('users.index')}}" class="nav-link">
+                          <i class="far fa-copy nav-icon"></i>
+                          <p>Lists</p>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="{{route('users.create')}}" class="nav-link">
                           <i class="far fa-circle nav-icon"></i>
-                          <p>Option1</p>
+                          <p>Add Post</p>
                         </a>
                       </li>
                     </ul>
-                  </li> --}}
+                  </li>
+                  <li class="nav-item has-treeview menu-close">
+                    <a href="#" class="nav-link">
+                      <i class="nav-icon fas fa-image"></i>
+                      <p>
+                        Categories
+                        <i class="right fas fa-angle-left"></i>
+                      </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                      <li class="nav-item">
+                        <a href="./index.html" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>All Category</p>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="./index.html" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Add category</p>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li class="nav-item has-treeview menu-close">
+                    <a href="#" class="nav-link">
+                      <i class="nav-icon fas fa-image"></i>
+                      <p>
+                        Media
+                        <i class="right fas fa-angle-left"></i>
+                      </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                      <li class="nav-item">
+                        <a href="./index.html" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>All Media</p>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="./index.html" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Upload Media</p>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
                 </ul>
               </nav>
             </div>

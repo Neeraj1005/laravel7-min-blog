@@ -26,8 +26,8 @@ class UserRequest extends FormRequest
         return [
             'name' => 'required|max:50',
             'email' => 'required|unique:users,email',
-            'role_id' => 'required',
-            'is_active' => 'required',
+            'role_id' => 'required|not_in:0',
+            'is_active' => 'required|not_in:2',
             'password' => 'required|min:6',
         ];
     }
@@ -43,6 +43,8 @@ class UserRequest extends FormRequest
             'name.required' => 'A name is required',
             'name.max' =>'Name string is exceeded',
             'email.required'  => 'A valid email is required',
+            'role_id.not_in' => 'Please choose from the list...',
+            'is_active.not_in' => 'Please choose from the list...'
         ];
     }
 }

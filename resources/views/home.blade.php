@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <a href="{{route('users.index')}}">ClickHere</a>
                 </div>
             </div>
         </div>

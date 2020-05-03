@@ -19,9 +19,17 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::prefix('admin')->namespace('Admin')->group(function (){
+Route::get('/home', 'HomeController@index')->name('home');
 
-    Route::resource('users', 'AdminController');
+/*Below Routes are created manually by me*/
+
+Route::group(['middleware' => 'admin'], function () {
+
+    Route::prefix('admin')->namespace('Admin')->group(function (){
+
+        Route::resource('users', 'AdminController');
+    });
+
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
+

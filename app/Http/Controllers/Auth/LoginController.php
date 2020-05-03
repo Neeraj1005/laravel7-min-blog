@@ -40,18 +40,20 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    // protected function credentials(Request $request)
+    // protected function credentials(Request $request)//working
     // {
     //     return array_merge($request->only($this->username(), 'password'), ['is_active' => 1]);
     // }
 
-    protected function authenticated(Request $request, $user)
+    protected function authenticated(Request $request, $user) //working
     {
-        if (auth()->user()->is_active !== 1) {
+        if ($user->is_active !== 1) {
 
-            Auth::logout();
+            // if (Auth::check())
+                Auth::logout();
+            // }
 
             return redirect('login')->with('status','your account has been blocked!');
-    }
+        }
     }
 }

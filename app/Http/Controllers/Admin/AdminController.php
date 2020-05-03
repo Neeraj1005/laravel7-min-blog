@@ -19,7 +19,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $users = User::latest()->get();
+        $users = User::where('id','!=',1)->latest()->get();
         return view('admin.users.index',compact('users'));
     }
 

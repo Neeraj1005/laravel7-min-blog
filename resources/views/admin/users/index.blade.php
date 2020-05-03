@@ -33,7 +33,24 @@
                     <tbody>
                         @foreach ($users as $user)
                         <tr>
-                            <td>{{$user->name}}</td>
+                            <td>
+                                {{$user->name}}<br>
+                                <small>
+                                    <a href="" type="submit" role="button"
+                                        onclick="event.preventDefault();
+                                        if(confirm('Are you sure!')){
+                                            // document.getElementById('form-delete-{{$user->id}}').submit();//js
+                                            $('#form-delete-{{$user->id}}').submit();//jquery
+                                        }
+                                        ">
+                                        Delete
+                                    </a>
+                                </small>
+                                <form style="display:none" id="{{'form-delete-'.$user->id}}" action="{{route('users.destroy',$user->id)}}" method="POST">
+                                    @csrf
+                                    @method('delete')
+                                </form>
+                            </td>
                             <td>
                                 <img
                                 src="{{$user->photo ? $user->photo->file : '/images/default-avatar.jpeg'}}"
@@ -44,7 +61,9 @@
                             >
 
                             </td>
-                            <td>{{$user->role->name}}</td>
+                            <td>
+                                {{$user->role->name}}
+                            </td>
                             <td>{{ ($user->is_active == 1) ? 'Active' : 'Blocked' }}</td>
                             <td>{{ $user->created_at->diffForHumans() }}</td>
                             <td>{{$user->updated_at->diffForHumans() }}</td>

@@ -39,21 +39,22 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-
+    /*
+    #Below these 2 methods are also working, If you don't want to use the middleware then user any of two below methods
     // protected function credentials(Request $request)//working
     // {
     //     return array_merge($request->only($this->username(), 'password'), ['is_active' => 1]);
     // }
 
-    protected function authenticated(Request $request, $user) //working
-    {
-        if ($user->is_active !== 1) {
+    // protected function authenticated(Request $request, $user) //working
+    // {
+    //     if ($user->is_active !== 1) {
 
-            // if (Auth::check())
-                Auth::logout();
-            // }
+    //         Auth::logout();
 
-            return redirect('login')->with('status','your account has been blocked!');
-        }
-    }
+    //         return redirect('login')->with('message','your account has been blocked!');
+    //     }
+    // }
+
+    */
 }

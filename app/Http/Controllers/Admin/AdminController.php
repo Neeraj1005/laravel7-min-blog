@@ -6,6 +6,8 @@ use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserEditRequest;
+use App\Http\Requests\UserRequest;
 use App\Photo;
 
 class AdminController extends Controller
@@ -38,9 +40,15 @@ class AdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, User $user)
+    public function store(UserRequest $request, User $user)
     {
-        $input = $request->all();
+        if(trim($request->password) == ''){//if password field is empty then fill all request except password field
+            $input = $request->except('password');
+        } else {
+            $input = $request->all();
+
+            $input['password'] = bcrypt($request->password);
+        }
 
         if($file = $request->file('photo_id')){
             $name = time() . $file->getClientOriginalName();
@@ -52,7 +60,6 @@ class AdminController extends Controller
             $input['photo_id'] = $photo->id;
         }
 
-        $input['password'] = bcrypt($request->password);
 
         $user->create($input);
         return redirect(route('users.index'))->with('status','User created successfully');
@@ -75,9 +82,10 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        $roles = Role::all();
+        return view('admin.users.edit',compact('user','roles'));
     }
 
     /**
@@ -87,9 +95,29 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserEditRequest $request, User $user)
     {
-        //
+        if(trim($request->password) == ''){//if password field is empty then fill all request except password field
+            $input = $request->except('password');
+        } else {
+            $input = $request->all();
+
+            $input['password'] = bcrypt($request->password);
+        }
+
+        if($file = $request->file('photo_id')){
+            $name = time() . $file->getClientOriginalName();
+
+            $file->move('images', $name);
+
+            $photo = Photo::create(['file'=>$name]);
+            //IN update part user either insert new image or leave it as previous image no old image is replaced it will be available in media menu
+            $input['photo_id'] = $photo->id;
+        }
+
+
+        $user->update($input);
+        return redirect(route('users.index'))->with('status','User created successfully');
     }
 
     /**

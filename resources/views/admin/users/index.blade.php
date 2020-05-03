@@ -25,6 +25,8 @@
                             <th>Avatar</th>
                             <th>Role</th>
                             <th>Status</th>
+                            <th>Created_at</th>
+                            <th>Updated_at</th>
                             <th>Edit</th>
                         </tr>
                     </thead>
@@ -44,6 +46,8 @@
                             </td>
                             <td>{{$user->role->name}}</td>
                             <td>{{ ($user->is_active == 1) ? 'Active' : 'Blocked' }}</td>
+                            <td>{{ $user->created_at->diffForHumans() }}</td>
+                            <td>{{$user->updated_at->diffForHumans() }}</td>
                             <td>
                                 <a name="editbtn" id="editbtn" class="btn btn-primary" href="{{route('users.edit',$user->id)}}" role="button">Edit</a>
                             </td>

@@ -64,11 +64,12 @@
                         <td>{{$post->user->name}}</td>
                         <td>{{$post->created_at->diffForHumans()}}</td>
                         <td>{{$post->updated_at->diffForHumans()}}</td>
-                        @empty
-
-                        <td rowspan="5">no post available</td>
-
                     </tr>
+                        @empty
+                    <td rowspan="6">
+                        No post is avaliable
+                    </td>
+
                     @endforelse
                 </tbody>
               </table>

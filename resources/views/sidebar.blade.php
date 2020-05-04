@@ -72,13 +72,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                       <li class="nav-item">
-                        <a href="{{route('users.index')}}" class="nav-link">
+                        <a href="{{route('posts.index')}}" class="nav-link">
                           <i class="far fa-copy nav-icon"></i>
                           <p>Lists</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="{{route('users.create')}}" class="nav-link">
+                        <a href="{{route('posts.create')}}" class="nav-link">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Add Post</p>
                         </a>

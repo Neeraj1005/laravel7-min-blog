@@ -15,6 +15,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::prefix('admin')->namespace('Admin')->group(function (){
 
         Route::resource('users', 'AdminController');
+        Route::resource('posts', 'AdminPostController');
     });
 
 });

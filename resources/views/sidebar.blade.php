@@ -94,14 +94,14 @@
                       </p>
                     </a>
                     <ul class="nav nav-treeview">
-                      <li class="nav-item">
-                        <a href="./index.html" class="nav-link">
+                      {{-- <li class="nav-item">
+                        <a href="{{route('category.create')}}" class="nav-link">
                           <i class="far fa-circle nav-icon"></i>
                           <p>All Category</p>
                         </a>
-                      </li>
+                      </li> --}}
                       <li class="nav-item">
-                        <a href="./index.html" class="nav-link">
+                        <a href="{{route('category.index')}}" class="nav-link">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Add category</p>
                         </a>

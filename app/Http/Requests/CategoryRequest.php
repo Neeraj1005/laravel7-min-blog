@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PostEditRequest extends FormRequest
+class CategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,19 @@ class PostEditRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:200',
-            'body' => 'required',
-            'photo_id' => 'file|mimes:jpeg,jpg,png|max:1024',
-            'category_id' => 'required|not_in:0',
+            'name' => 'required|max:25',
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'name.required' => 'A category name is required',
         ];
     }
 }

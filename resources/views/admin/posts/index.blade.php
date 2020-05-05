@@ -19,11 +19,7 @@
       </div>
     </div><!-- /.container-fluid -->
   </section>
-    @if (session('message'))
-    <div class="alert alert-info" role="alert">
-        {{ session('message') }}
-    </div>
-    @endif
+   @include('includes.message')
 
 <section class="content">
     <div class="container-fluid">
@@ -57,16 +53,29 @@
                             {{$post->title}}<br>
                             <small><a href="{{route('posts.edit',$post->id)}}">Edit</a></small>
                             <small><a href="{{route('posts.show',$post->id)}}">View</a></small>
-                            <small>Delete</small>
+                            <small>
+                                <a href="" type="submit" role="button"
+                                    onclick="event.preventDefault();
+                                    if(confirm('Are you sure!')){
+                                        $('#form-delete-{{$post->id}}').submit();
+                                    }
+                                    ">
+                                    Delete
+                                </a>
+                            </small>
+                            <form style="display:none" id="form-delete-{{$post->id}}" action="{{route('posts.destroy',$post->id)}}" method="POST">
+                                @csrf
+                                @method('delete')
+                            </form>
 
                         </td>
-                        <td>{{Null}}</td>
+                        <td>{{($post->category->name) ?? ''}}</td>
                         <td>{{$post->user->name}}</td>
                         <td>{{$post->created_at->diffForHumans()}}</td>
                         <td>{{$post->updated_at->diffForHumans()}}</td>
                     </tr>
                         @empty
-                    <td rowspan="6">
+                    <td class="text-center" colspan="6">
                         No post is avaliable
                     </td>
 

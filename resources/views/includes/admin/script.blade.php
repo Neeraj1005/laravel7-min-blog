@@ -70,4 +70,4 @@
       });
     });
   </script>
-    <script src="http://unpkg.com/turbolinks"></script>
+    {{-- <script src="http://unpkg.com/turbolinks"></script> --}}

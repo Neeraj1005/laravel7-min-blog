@@ -62,7 +62,7 @@
 
                             </td>
                             <td>
-                                {{$user->role->name}}
+                                {{($user->role->name) ?? ''}}
                             </td>
                             <td>{{ ($user->is_active == 1) ? 'Active' : 'Blocked' }}</td>
                             <td>{{ $user->created_at->diffForHumans() }}</td>

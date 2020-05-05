@@ -43,27 +43,36 @@
                                         <small class="form-text text-red">{{ $message }}</small>
                                     @enderror
                                 </div>
-                                {{-- <div class="form-group">
-                                    <label for="category_id">Role</label>
-                                    <select class="form-control @error('category_id') is-invalid @enderror" name="category_id" id="role">
-                                        <option value="0">Select Role</option>
-                                        @foreach ($roles as $role)
-                                        <option value="{{$role->id}}">{{$role->name}}</option>
+                                <div class="form-group">
+                                    <label for="category_id">Category</label>
+                                    <select class="form-control @error('category_id') is-invalid @enderror" name="category_id" id="category">
+                                        <option value="0">Select Category</option>
+                                        @foreach ($category as $cat)
+                                        <option value="{{$cat->id}}">{{$cat->name}}</option>
                                         @endforeach
                                     </select>
                                     @error('category_id')
                                     <small class="form-text text-red">{{ $message }}</small>
                                     @enderror
-                                </div> --}}
+                                </div>
 
                                 <div class="form-group">
                                     <label for="photo_id">PostImage</label>
-                                    <input id="photo_id" class="form-control-file" type="file" name="photo_id">
+                                    <input id="photo_id" class="form-control-file @error('photo_id') is-invalid @enderror" type="file" name="photo_id" aria-describedby="fileHelp">
+                                    <small id="fileHelp" class="form-text text-muted">
+                                        Please upload a valid image file. Size of image should not be more than 2MB.
+                                    </small>
+                                    @error('photo_id')
+                                    <small class="form-text text-red">{{ $message }}</small>
+                                    @enderror
                                 </div>
 
                                 <div class="form-group">
                                     <label for="body">Description</label>
-                                    <textarea id="body" class="form-control" name="body" rows="5"></textarea>
+                                    <textarea id="body" class="form-control @error('body') is-invalid @enderror" name="body" rows="5"></textarea>
+                                    @error('body')
+                                    <small class="form-text text-red">{{ $message }}</small>
+                                    @enderror
                                 </div>
 
                                 <a name="" id="" class="btn btn-light" href="{{route('posts.index')}}" role="button">Cancel</a>

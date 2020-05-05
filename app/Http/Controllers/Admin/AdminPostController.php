@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-
+use App\Category;
 use App\Post;
 use App\Photo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostEditRequest;
+use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\Auth;
 
 class AdminPostController extends Controller
@@ -30,7 +31,8 @@ class AdminPostController extends Controller
      */
     public function create(Post $post)
     {
-        return view('admin.posts.create',compact('post'));
+        $category = Category::all();
+        return view('admin.posts.create',compact('post','category'));
 
     }
 
@@ -40,7 +42,7 @@ class AdminPostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PostEditRequest $request, Post $post)
+    public function store(PostRequest $request, Post $post)
     {
 
         $input = $request->validated();
@@ -86,7 +88,9 @@ class AdminPostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.posts.edit',compact('post'));
+        // dd($post->category->name);
+        $category = Category::all();
+        return view('admin.posts.edit',compact('post','category'));
     }
 
     /**
@@ -131,7 +135,8 @@ class AdminPostController extends Controller
      */
     public function destroy(Post $post)
     {
+        // dd($post->category()->count());
         $post->delete();
-        return redirect(route('posts.index'))->with('message','deleted successfully');
+        return redirect()->back()->with('message','deleted successfully');
     }
 }

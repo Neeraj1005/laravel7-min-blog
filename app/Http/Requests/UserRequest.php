@@ -44,7 +44,7 @@ class UserRequest extends FormRequest
             'name.max' =>'Name string is exceeded',
             'email.required'  => 'A valid email is required',
             'role_id.not_in' => 'Please choose from the list...',
-            'is_active.not_in' => 'Please choose from the list...'
+            'is_active.not_in' => 'Please choose from the list...',
         ];
     }
 }

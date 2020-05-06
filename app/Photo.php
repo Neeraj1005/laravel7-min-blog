@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Photo extends Model
 {
-
     protected $fillable = ['file'];
 
     protected $uploads = '/images/';
@@ -14,6 +13,6 @@ class Photo extends Model
     public function getFileAttribute($value)
     {
         // return asset( $this->uploads . $value ? : '/default-avatar.jpeg');
-        return asset($this->uploads . $value);
+        return asset($this->uploads.$value);
     }
 }

@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
-use App\Post;
-use App\Photo;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostEditRequest;
 use App\Http\Requests\PostRequest;
+use App\Photo;
+use App\Post;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AdminPostController extends Controller
@@ -21,7 +21,8 @@ class AdminPostController extends Controller
     public function index()
     {
         $posts = Post::with('user')->get();
-        return view('admin.posts.index',compact('posts'));
+
+        return view('admin.posts.index', compact('posts'));
     }
 
     /**
@@ -32,8 +33,8 @@ class AdminPostController extends Controller
     public function create(Post $post)
     {
         $category = Category::all();
-        return view('admin.posts.create',compact('post','category'));
 
+        return view('admin.posts.create', compact('post', 'category'));
     }
 
     /**
@@ -44,27 +45,21 @@ class AdminPostController extends Controller
      */
     public function store(PostRequest $request, Post $post)
     {
-
         $input = $request->validated();
 
-        if($file = $request->file('photo_id')){
-
-
-            $name = time() . $file->getClientOriginalName();
-
+        if ($file = $request->file('photo_id')) {
+            $name = time().$file->getClientOriginalName();
 
             $file->move('images', $name);
 
             $photo = Photo::create(['file'=>$name]);
 
-
             $input['photo_id'] = $photo->id;
-
         }
 
         auth()->user()->posts()->create($input);
 
-        return redirect(route('posts.index'))->with('message','Posts created succesfully');
+        return redirect(route('posts.index'))->with('message', 'Posts created succesfully');
 
         // dd(Auth::user());
     }
@@ -90,7 +85,8 @@ class AdminPostController extends Controller
     {
         // dd($post->category->name);
         $category = Category::all();
-        return view('admin.posts.edit',compact('post','category'));
+
+        return view('admin.posts.edit', compact('post', 'category'));
     }
 
     /**
@@ -105,26 +101,20 @@ class AdminPostController extends Controller
         // dd($request->validated());
         $input = $request->validated(); //request->all() dangerous for security reason
 
-        if($file = $request->file('photo_id')){
-
-
-            $name = time() . $file->getClientOriginalName();
-
+        if ($file = $request->file('photo_id')) {
+            $name = time().$file->getClientOriginalName();
 
             $file->move('images', $name);
 
             $photo = Photo::create(['file'=>$name]);
 
-
             $input['photo_id'] = $photo->id;
-
         }
         // $input['user_id'] = Auth::user()->id;
 
         $post->update($input);
 
-        return redirect(route('posts.index'))->with('message','Posts created succesfully');
-
+        return redirect(route('posts.index'))->with('message', 'Posts created succesfully');
     }
 
     /**
@@ -137,6 +127,7 @@ class AdminPostController extends Controller
     {
         // dd($post->category()->count());
         $post->delete();
-        return redirect()->back()->with('message','deleted successfully');
+
+        return redirect()->back()->with('message', 'deleted successfully');
     }
 }

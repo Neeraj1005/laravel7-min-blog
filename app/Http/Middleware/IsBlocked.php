@@ -17,10 +17,9 @@ class IsBlocked
     public function handle($request, Closure $next)
     {
         if (Auth::check() && auth()->user()->is_active !== 1) {
-
             Auth::logout();
 
-            return redirect('login')->with('message','you\'r account has been blocked');
+            return redirect('login')->with('message', 'you\'r account has been blocked');
         }
 
         return $next($request);

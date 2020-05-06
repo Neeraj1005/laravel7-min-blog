@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Role;
-use App\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserEditRequest;
 use App\Http\Requests\UserRequest;
 use App\Photo;
+use App\Role;
+use App\User;
+use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
@@ -19,8 +19,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $users = User::where('id','!=',1)->latest()->get();
-        return view('admin.users.index',compact('users'));
+        $users = User::where('id', '!=', 1)->latest()->get();
+
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -31,7 +32,8 @@ class AdminController extends Controller
     public function create(User $user)
     {
         $roles = Role::all();
-        return view('admin.users.create',compact('user','roles'));
+
+        return view('admin.users.create', compact('user', 'roles'));
     }
 
     /**
@@ -42,7 +44,7 @@ class AdminController extends Controller
      */
     public function store(UserRequest $request, User $user)
     {
-        if(trim($request->password) == ''){//if password field is empty then fill all request except password field
+        if (trim($request->password) == '') {//if password field is empty then fill all request except password field
             $input = $request->except('password');
         } else {
             $input = $request->all();
@@ -50,8 +52,8 @@ class AdminController extends Controller
             $input['password'] = bcrypt($request->password);
         }
 
-        if($file = $request->file('photo_id')){
-            $name = time() . $file->getClientOriginalName();
+        if ($file = $request->file('photo_id')) {
+            $name = time().$file->getClientOriginalName();
 
             $file->move('images', $name);
 
@@ -60,9 +62,9 @@ class AdminController extends Controller
             $input['photo_id'] = $photo->id;
         }
 
-
         $user->create($input);
-        return redirect(route('users.index'))->with('status','User created successfully');
+
+        return redirect(route('users.index'))->with('status', 'User created successfully');
     }
 
     /**
@@ -85,7 +87,8 @@ class AdminController extends Controller
     public function edit(User $user)
     {
         $roles = Role::all();
-        return view('admin.users.edit',compact('user','roles'));
+
+        return view('admin.users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -97,7 +100,7 @@ class AdminController extends Controller
      */
     public function update(UserEditRequest $request, User $user)
     {
-        if(trim($request->password) == ''){//if password field is empty then fill all request except password field
+        if (trim($request->password) == '') {//if password field is empty then fill all request except password field
             $input = $request->except('password');
         } else {
             $input = $request->all();
@@ -105,8 +108,8 @@ class AdminController extends Controller
             $input['password'] = bcrypt($request->password);
         }
 
-        if($file = $request->file('photo_id')){
-            $name = time() . $file->getClientOriginalName();
+        if ($file = $request->file('photo_id')) {
+            $name = time().$file->getClientOriginalName();
 
             $file->move('images', $name);
 
@@ -115,9 +118,9 @@ class AdminController extends Controller
             $input['photo_id'] = $photo->id;
         }
 
-
         $user->update($input);
-        return redirect(route('users.index'))->with('status','User created successfully');
+
+        return redirect(route('users.index'))->with('status', 'User created successfully');
     }
 
     /**
@@ -129,6 +132,7 @@ class AdminController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect(route('users.index'))->with('status','deleted successfully');
+
+        return redirect(route('users.index'))->with('status', 'deleted successfully');
     }
 }

@@ -17,7 +17,8 @@ class AdminCategoryController extends Controller
     public function index()
     {
         $category = Category::latest()->simplePaginate(5);
-        return view('admin.category.index',compact('category'));
+
+        return view('admin.category.index', compact('category'));
     }
 
     /**
@@ -43,7 +44,7 @@ class AdminCategoryController extends Controller
 
         $category->create($input);
 
-        return redirect()->back()->with('message','category created successfully');
+        return redirect()->back()->with('message', 'category created successfully');
     }
 
     /**

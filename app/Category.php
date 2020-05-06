@@ -11,7 +11,6 @@ class Category extends Model
 
     public $fillable = ['name'];
 
-
     public function posts()
     {
         return $this->hasMany('App\Post');

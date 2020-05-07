@@ -72,11 +72,13 @@
                                         @enderror
                                     </select>
                                 </div>
+
                                 <div class="form-group">
-                                    <label for="photo_id">Avatar</label>
-                                    <input id="photo_id" class="form-control-file" type="file" name="photo_id">
+                                    <label for="path">Avatar</label>
+                                    <input id="path" class="form-control-file" type="file" name="path">
                                     <small>{{($user->photo) ? $user->photo->file : 'no file uploaded'}}</small>
                                 </div>
+
                                 <div class="form-group">
                                     <label for="password">Password</label>
                                     <input type="password" class="form-control" name="password" id="password" placeholder="">

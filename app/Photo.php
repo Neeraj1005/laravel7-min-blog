@@ -23,4 +23,10 @@ class Photo extends Model
 
         $this->hasMany('App\Post');
     }
+
+    public function users()
+    {
+
+        $this->hasMany('App\User');
+    }
 }

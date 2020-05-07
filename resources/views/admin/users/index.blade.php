@@ -53,7 +53,8 @@
                             </td>
                             <td>
                                 <img
-                                src="{{$user->photo ? $user->photo->file : '/images/default-avatar.jpeg'}}"
+                                {{-- src="{{ $user->photo->file }}" --}}
+                                src="{{($user->photo) ? $user->photo->file : '/images/default-avatar.jpeg'}}"
                                 alt="your avatar"
                                 class="rounded-full mr-2"
                                 width="50"

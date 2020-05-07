@@ -59,6 +59,7 @@ class AdminController extends Controller
 
             $uploadpath = $request->photo_id->storeAs('media', $originalname, 'public');//filepath=>media/filename.png
 
+
             $photo = Photo::create(['file'=> $originalname]);
 
             $input['photo_id'] = $photo->id;
@@ -76,9 +77,9 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        // dd($user->photo);
     }
 
     /**
@@ -110,18 +111,32 @@ class AdminController extends Controller
             $input['password'] = bcrypt($request->password);
         }
 
-        if($request->hasFile('photo_id'))
+        if($request->hasFile('path'))
         {
 
-            $originalname = $request->photo_id->getClientOriginalName();
+            $originalname = $request->path->getClientOriginalName();
 
-            $extension = $request->photo_id->extension();
+            $extension = $request->path->extension();
 
-            $uploadpath = $request->photo_id->storeAs('media', $originalname, 'public');//filepath=>media/filename.png
+            $uploadpath = $request->path->storeAs('media', $originalname, 'public');//filepath=>media/filename.png
 
-            $photo = Photo::create(['file'=> $originalname]);
+            if ($user->photo_id != Null) {//if their is already photo then update it
 
-            $input['photo_id'] = $photo->id;
+                $user->photo->update([
+
+                    'file'=>$originalname
+
+                    ]);
+            } else { //if no photo then associate and create
+
+                $user->photo()->associate(
+                    Photo::create([
+                        'file' => $originalname
+                    ])
+                );
+            }
+
+            $user->save();
 
         }
 

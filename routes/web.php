@@ -17,8 +17,10 @@ Route::group(['middleware' => 'admin'], function () {
         Route::resource('users', 'AdminController');
         Route::resource('posts', 'AdminPostController');
         Route::resource('category', 'AdminCategoryController');
+        Route::resource('tags', 'TagsController');
     });
 
 });
 
+// Route::resource('posts/tag', 'TagsController');
 

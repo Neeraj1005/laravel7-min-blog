@@ -85,6 +85,7 @@
                       </li>
                     </ul>
                   </li>
+
                   <li class="nav-item has-treeview menu-close">
                     <a href="#" class="nav-link">
                       <i class="nav-icon fas fa-image"></i>
@@ -104,6 +105,24 @@
                         <a href="{{route('category.index')}}" class="nav-link">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Add category</p>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li class="nav-item has-treeview menu-close">
+                    <a href="#" class="nav-link">
+                      <i class="nav-icon fas fa-image"></i>
+                      <p>
+                        Tag
+                        <i class="right fas fa-angle-left"></i>
+                      </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                      <li class="nav-item">
+                        <a href="{{route('tags.index')}}" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Add Tags</p>
                         </a>
                       </li>
                     </ul>

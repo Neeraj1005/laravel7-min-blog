@@ -37,6 +37,7 @@
                   <th>PostImage</th>
                   <th>PostName</th>
                   <th>Category</th>
+                  <th>Tags</th>
                   <th>Author</th>
                   <th>Created_at</th>
                   <th>Updated_at</th>
@@ -70,6 +71,13 @@
 
                         </td>
                         <td>{{($post->category->name) ?? ''}}</td>
+                        <td>
+                            @forelse($post->tags as $tag)
+                                {{($tag->name) ?? ''}}
+                                @empty
+                                No tags avaliable
+                                @endforelse
+                        </td>
                         <td>{{$post->user->name}}</td>
                         <td>{{$post->created_at->diffForHumans()}}</td>
                         <td>{{$post->updated_at->diffForHumans()}}</td>

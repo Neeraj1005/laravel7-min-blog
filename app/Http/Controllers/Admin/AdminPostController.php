@@ -20,7 +20,8 @@ class AdminPostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('user')->get();
+        // $posts = Post::has('tags')->get();
+        $posts = Post::latest()->get();
         return view('admin.posts.index',compact('posts'));
     }
 
@@ -77,7 +78,7 @@ class AdminPostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('admin.posts.view');
+        return view('admin.posts.view',compact('post'));
     }
 
     /**

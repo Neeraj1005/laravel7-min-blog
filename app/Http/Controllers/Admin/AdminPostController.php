@@ -129,9 +129,9 @@ class AdminPostController extends Controller
 
         // $input['user_id'] = Auth::user()->id;
 
-        $updatepost = $post->update($input);
+        $post->update($input);
 
-        $updatepost->tags()->sync(request('tags'));
+        $post->tags()->sync(request('tags'));
 
         return redirect(route('posts.index'))->with('message','Posts created succesfully');
 

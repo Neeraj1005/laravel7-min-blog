@@ -42,7 +42,7 @@ class AdminController extends Controller
      */
     public function store(UserRequest $request, User $user)
     {
-        if(trim($request->password) == ''){//if password field is empty then fill all request except password field
+        if (trim($request->password) == '') {//if password field is empty then fill all request except password field
             $input = $request->except('password');
         } else {
             $input = $request->all();
@@ -50,18 +50,23 @@ class AdminController extends Controller
             $input['password'] = bcrypt($request->password);
         }
 
-        if($file = $request->file('photo_id')){
-            $name = time() . $file->getClientOriginalName();
+        if($request->hasFile('photo_id'))
+        {
 
-            $file->move('images', $name);
+            $originalname = $request->photo_id->getClientOriginalName();
 
-            $photo = Photo::create(['file'=>$name]);
+            $extension = $request->photo_id->extension();
+
+            $uploadpath = $request->photo_id->storeAs('media', $originalname, 'public');//filepath=>media/filename.png
+
+            $photo = Photo::create(['file'=> $originalname]);
 
             $input['photo_id'] = $photo->id;
+
         }
 
-
         $user->create($input);
+
         return redirect(route('users.index'))->with('status','User created successfully');
     }
 
@@ -105,18 +110,23 @@ class AdminController extends Controller
             $input['password'] = bcrypt($request->password);
         }
 
-        if($file = $request->file('photo_id')){
-            $name = time() . $file->getClientOriginalName();
+        if($request->hasFile('photo_id'))
+        {
 
-            $file->move('images', $name);
+            $originalname = $request->photo_id->getClientOriginalName();
 
-            $photo = Photo::create(['file'=>$name]);
-            //IN update part user either insert new image or leave it as previous image no old image is replaced it will be available in media menu
+            $extension = $request->photo_id->extension();
+
+            $uploadpath = $request->photo_id->storeAs('media', $originalname, 'public');//filepath=>media/filename.png
+
+            $photo = Photo::create(['file'=> $originalname]);
+
             $input['photo_id'] = $photo->id;
+
         }
 
-
         $user->update($input);
+
         return redirect(route('users.index'))->with('status','User created successfully');
     }
 
@@ -129,6 +139,7 @@ class AdminController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect(route('users.index'))->with('status','deleted successfully');
+
+        return back()->with('status','deleted successfully');
     }
 }

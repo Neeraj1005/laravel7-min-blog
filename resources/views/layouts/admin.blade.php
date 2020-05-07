@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Admin: - @yield('title')</title>
-    @include('includes.admin.styles')
+    @include('includes.admin.tempstyles')
 </head>
 
 <body>
@@ -30,7 +30,7 @@
         @include('includes.admin.footer')
         @show
 
-        @include('includes.admin.script')
+        @include('includes.admin.tempscript')
     </div>
 </body>
 </html>

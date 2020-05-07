@@ -57,6 +57,20 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label>Multiple</label>
+                                    <select class="select2bs4" name="tags[]" multiple="multiple" data-placeholder="Select a State"
+                                            style="width: 100%;">
+                                      <option value="0">Select tags</option>
+                                        @foreach ($tags as $tag)
+                                            <option value="{{$tag->id}}">{{$tag->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('tags')
+                                    <small class="form-text text-red">{{ $message }}</small>
+                                    @enderror
+                                  </div>
+
+                                <div class="form-group">
                                     <label for="photo_id">PostImage</label>
                                     <input id="photo_id" class="form-control-file @error('photo_id') is-invalid @enderror" type="file" name="photo_id" aria-describedby="fileHelp">
                                     <small id="fileHelp" class="form-text text-muted">

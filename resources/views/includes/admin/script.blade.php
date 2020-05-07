@@ -25,49 +25,22 @@
     <!-- AdminLTE App -->
     <script src="{{asset('dist/js/adminlte.min.js')}}"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="{{asset('dist/js/demo.js')}}"></script>
+    {{-- <script src="{{asset('dist/js/demo.js')}}"></script> --}}
     <script>
-      $(function () {
-        //Initialize Select2 Elements
-        $(".select2").select2({
-          allowClear: true,
-          placeholder: {
-            id: '0', // the value of the option
-            text: 'Select an option'
-          },
-          maximumInputLength: 2,//For minimum search result
-          // minimumResultsForSearch: -1
-          //For hiding the search box and replace -1 with other value it will show search results
-
+        $(function () {
+        $("#example1").DataTable({
+            "responsive": true,
+            "autoWidth": false,
         });
-
-        //Date range picker changed into single datepicker using singleDatePicker: true, do false if range needed
-        $("#reservation").daterangepicker({
-          timePicker: false,
-          singleDatePicker: true,
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
         });
-
-        //Timepicker
-        $("#timepicker").datetimepicker({
-          format: "LT",
         });
-      });
     </script>
-  <script>
-    $(function () {
-      $("#example1").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-      });
-      $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
-      });
-    });
-  </script>
-    {{-- <script src="http://unpkg.com/turbolinks"></script> --}}
+    <script src="http://unpkg.com/turbolinks"></script>

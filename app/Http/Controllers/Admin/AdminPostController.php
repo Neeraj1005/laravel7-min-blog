@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Category;
+use App\Tag;
 use App\Post;
 use App\Photo;
+use App\Category;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\PostEditRequest;
 use App\Http\Requests\PostRequest;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\PostEditRequest;
 
 class AdminPostController extends Controller
 {
@@ -32,8 +33,12 @@ class AdminPostController extends Controller
      */
     public function create(Post $post)
     {
-        $category = Category::all();
-        return view('admin.posts.create',compact('post','category'));
+
+        return view('admin.posts.create',[
+
+            'category' => Category::all(),
+            'tags' => Tag::all(),
+        ]);
 
     }
 
@@ -45,6 +50,7 @@ class AdminPostController extends Controller
      */
     public function store(PostRequest $request, Post $post)
     {
+        // dd($request->all());
 
         $input = $request->validated();
 
@@ -63,11 +69,12 @@ class AdminPostController extends Controller
 
         }
 
-        auth()->user()->posts()->create($input);
+        $post = auth()->user()->posts()->create($input);
+
+        // dd($post);
+        $post->tags()->attach(request('tags'));//for store the tags
 
         return redirect(route('posts.index'))->with('message','Posts created succesfully');
-
-        // dd(Auth::user());
     }
 
     /**

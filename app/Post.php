@@ -19,7 +19,10 @@ class Post extends Model
 
     public function photo()
     {
-       return $this->belongsTo('App\Photo');
+       return $this->belongsTo('App\Photo')
+                    ->withDefault([
+                    'file ' => '/images/default-avatar.jpeg'
+                    ]);
     }
 
     public function category()
@@ -31,4 +34,5 @@ class Post extends Model
     {
         return $this->belongsToMany('App\Tag');
     }
+
 }

@@ -57,7 +57,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Multiple</label>
+                                    <label>Tags</label>
                                     <select class="select2bs4" name="tags[]" multiple="multiple" data-placeholder="Select a State"
                                             style="width: 100%;">
                                       <option value="0">Select tags</option>

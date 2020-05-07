@@ -22,7 +22,7 @@ class AdminPostController extends Controller
     public function index()
     {
         // $posts = Post::has('tags')->get();
-        $posts = Post::latest()->get();
+        $posts = Post::with('photo')->latest()->get();
         return view('admin.posts.index',compact('posts'));
     }
 
@@ -50,20 +50,20 @@ class AdminPostController extends Controller
      */
     public function store(PostRequest $request, Post $post)
     {
-        // dd($request->all());
+
+        // dd($request->validated());
 
         $input = $request->validated();
 
-        if($file = $request->file('photo_id')){
+        if($request->hasFile('photo_id')){
 
+            $originalname = $request->photo_id->getClientOriginalName();
 
-            $name = time() . $file->getClientOriginalName();
+            $extension = $request->photo_id->extension();
 
+            $uploadpath = $request->photo_id->storeAs('media', $originalname, 'public');//filepath=>media/filename.png
 
-            $file->move('images', $name);
-
-            $photo = Photo::create(['file'=>$name]);
-
+            $photo = Photo::create(['file'=> $originalname]);
 
             $input['photo_id'] = $photo->id;
 
@@ -71,7 +71,6 @@ class AdminPostController extends Controller
 
         $post = auth()->user()->posts()->create($input);
 
-        // dd($post);
         $post->tags()->attach(request('tags'));//for store the tags
 
         return redirect(route('posts.index'))->with('message','Posts created succesfully');
@@ -96,9 +95,10 @@ class AdminPostController extends Controller
      */
     public function edit(Post $post)
     {
-        // dd($post->category->name);
+        $post->load('tags');
         $category = Category::all();
-        return view('admin.posts.edit',compact('post','category'));
+        $tags = Tag::all();
+        return view('admin.posts.edit',compact('post','category','tags'));
     }
 
     /**
@@ -113,23 +113,25 @@ class AdminPostController extends Controller
         // dd($request->validated());
         $input = $request->validated(); //request->all() dangerous for security reason
 
-        if($file = $request->file('photo_id')){
+        if($request->hasFile('photo_id')){
 
+            $originalname = $request->photo_id->getClientOriginalName();
 
-            $name = time() . $file->getClientOriginalName();
+            $extension = $request->photo_id->extension();
 
+            $uploadpath = $request->photo_id->storeAs('media', $originalname, 'public');//filepath=>media/filename.png
 
-            $file->move('images', $name);
-
-            $photo = Photo::create(['file'=>$name]);
-
+            $photo = Photo::create(['file'=> $originalname]);
 
             $input['photo_id'] = $photo->id;
 
         }
+
         // $input['user_id'] = Auth::user()->id;
 
-        $post->update($input);
+        $updatepost = $post->update($input);
+
+        $updatepost->tags()->sync(request('tags'));
 
         return redirect(route('posts.index'))->with('message','Posts created succesfully');
 

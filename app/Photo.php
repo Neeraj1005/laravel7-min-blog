@@ -9,11 +9,18 @@ class Photo extends Model
 
     protected $fillable = ['file'];
 
-    protected $uploads = '/images/';
+    protected $filepath = '/storage/media/';
 
     public function getFileAttribute($value)
     {
-        // return asset( $this->uploads . $value ? : '/default-avatar.jpeg');
-        return asset($this->uploads . $value);
+
+        return asset($value ? $this->filepath.$value: '/images/default-avatar.jpeg');
+
+    }
+
+    public function posts()
+    {
+
+        $this->hasMany('App\Post');
     }
 }

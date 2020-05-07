@@ -48,7 +48,13 @@
                     <tr>
 
                         <td>
-                            <img src="{{$post->photo ? $post->photo->file : '/images/default-avatar.jpeg'}}" alt="" width="35px" height="35px">
+                            {{-- <img
+                                src="{{$post->photo ? $post->photo->file : '/images/default-avatar.jpeg'}}"
+                                alt=""
+                                width="35px"
+                                height="35px"
+                            > --}}
+                            <img src="{{$post->photo->file}}" alt="" width="35px" height="35px">
                         </td>
                         <td>
                             {{$post->title}}<br>

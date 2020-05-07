@@ -28,6 +28,7 @@ class PostEditRequest extends FormRequest
             'body' => 'required',
             'photo_id' => 'file|mimes:jpeg,jpg,png|max:1024',
             'category_id' => 'required|not_in:0',
+            'tags' => 'exists:tags,id'
         ];
     }
 }

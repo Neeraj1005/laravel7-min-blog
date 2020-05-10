@@ -1,9 +1,8 @@
 <?php
 
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
+use App\User;
 use Illuminate\Support\Str;
+use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
 {
@@ -14,13 +13,39 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'name' => Str::random(10),
-            'email' => Str::random(10).'@gmail.com',
-            'email_verified_at' => now(),
-            'role_id' => rand(1 ,4),
-            'password' => Hash::make('password'),
-            'remember_token' => Str::random(10),
-        ]);
+        $users = [
+            [
+                'id' => 1,
+                'name' => 'Neeraj',
+                'email' => 'admin@admin.com',
+                'email_verified_at' => now(),
+                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                'remember_token' => Str::random(10),
+                'role_id' => 1,
+                'is_active' => 1,
+            ],
+            [
+                'id' => 2,
+                'name' => 'John',
+                'email' => 'john@example.com',
+                'email_verified_at' => now(),
+                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                'remember_token' => Str::random(10),
+                'role_id' => 2,
+                'is_active' => 1,
+            ],
+            [
+                'id' => 3,
+                'name' => 'Lilly',
+                'email' => 'lilly@example.com',
+                'email_verified_at' => now(),
+                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                'remember_token' => Str::random(10),
+                'role_id' => 3,
+                'is_active' => 1,
+            ],
+        ];
+
+        User::insert($users);
     }
 }

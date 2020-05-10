@@ -17,6 +17,7 @@ class AdminCategoryController extends Controller
     public function index()
     {
         $category = Category::latest()->simplePaginate(5);
+
         return view('admin.category.index',compact('category'));
     }
 
